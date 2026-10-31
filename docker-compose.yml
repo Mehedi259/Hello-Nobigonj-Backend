@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: hello-nobigonj-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hellonobigonj_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: nobigonjpassword2026
+    volumes:
+      - hello_nobigonj_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d hellonobigonj_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: hello-nobigonj-backend
+    restart: unless-stopped
+    ports:
+      - "8015:8000"
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: "django-insecure-hellonobigonj-senior-arch-prod-key-2026"
+      ALLOWED_HOSTS: "*"
+      CORS_ALLOW_ALL_ORIGINS: "True"
+      USE_SQLITE: "False"
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: hellonobigonj_db
+      DB_USER: postgres
+      DB_PASSWORD: nobigonjpassword2026
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - hello_nobigonj_media_volume:/app/media
+      - hello_nobigonj_static_volume:/app/staticfiles
+
+volumes:
+  hello_nobigonj_postgres_data:
+  hello_nobigonj_media_volume:
+  hello_nobigonj_static_volume:
+
