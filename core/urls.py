@@ -28,6 +28,18 @@ urlpatterns = [
     path('api/v1/notifications/', include('apps.notifications.urls')),
     path('api/v1/analytics/', include('apps.analytics.urls')),
     path('api/v1/settings/', include('apps.settings_app.urls')),
+
+    # Direct /api/ aliases
+    path('api/auth/', include('apps.accounts.urls')),
+    path('api/categories/', include('apps.categories.urls')),
+    path('api/authors/', include('apps.authors.urls')),
+    path('api/articles/', include('apps.articles.urls')),
+    path('api/comments/', include('apps.comments.urls')),
+    path('api/media/', include('apps.media_library.urls')),
+    path('api/subscribers/', include('apps.subscribers.urls')),
+    path('api/notifications/', include('apps.notifications.urls')),
+    path('api/analytics/', include('apps.analytics.urls')),
+    path('api/settings/', include('apps.settings_app.urls')),
 ]
 
 if settings.DEBUG:
