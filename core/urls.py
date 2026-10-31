@@ -13,6 +13,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # OpenAPI 3 Schema & Interactive Documentation
+    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui-root'),
+    path('docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui-docs'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui-alias'),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
